@@ -23,35 +23,31 @@ class Matriz:
         #criar função que alinhe as colunas para que seja reutilizada no código
 
     def _alinhar_matriz(self, lista):
-        if isinstance(lista[0], list): #se for true é uma lista aninhada, ou seja, uma matriz
-            pass
+        if len(lista) < self.quantidade_colunas:
+            difereca_colunas = (self.quantidade_colunas - len(lista))
+            lista += [0] * difereca_colunas
+            self.linhas.append(lista)
+            self.quantidade_linhas += 1 
+            print(f"Adicionou-se {difereca_colunas} colunas à linha {self.linhas.index(lista) + 1} para manter a concisão da matriz.")
 
-
-        elif isinstance(lista, Linha): #se true é uma Linha que será adicionada a matriz
-            self.quantidade_colunas = len(lista.item)
+        elif len(lista) > self.quantidade_colunas:
+            self.quantidade_colunas = len(lista)
             for x in range(len(self.linhas)):
                 if len(self.linhas[x]) < self.quantidade_colunas:
                     difereca_colunas = (self.quantidade_colunas - len(self.linhas[x]))
                     self.linhas[x] += [0] * difereca_colunas
                     print(f"Adicionou-se {difereca_colunas} colunas à linha {x+1} para manter a concisão da matriz.")
-
-        #pensei que essa maneira de alinhar seria a melhor, mas acho melhor separar em dois casos
-
-        #o método receberá uma lista e comparará com o tamanho da coluna, e trabalhará nessa lista
-        #antes de adicioná-la a matriz, porque há dois casos
-        #1. ou a lista é menor que a quantidade de colunas
-        #2. ou a lista é maior que a quantiade de colunas (precisa aumentar matriz)
-
-
-
-
+            self.linhas.append(lista)
+            self.quantidade_linhas += 1 
+        
+        elif len(lista) == self.quantidade_colunas:
+            self.linhas.append(lista)
+            self.quantidade_linhas += 1 
 
 
     def adicionar_linha(self, linha: Linha):  
-        self.linhas.append(linha.item)
-        self.quantidade_linhas += 1 
-        if self.quantidade_colunas < len(linha.item):
-           self._alinhar_matriz()
+        self._alinhar_matriz(linha.item)
+
 
 
     def print_matriz(self):
