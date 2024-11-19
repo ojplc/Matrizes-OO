@@ -26,3 +26,8 @@ matriz1.adicionar_linha(linha4)
 print('')
 
 matriz1.print_matriz()
+
+linha5 = Linha([1,2])
+matriz1.adicionar_linha(linha5)
+
+matriz1.print_matriz()
